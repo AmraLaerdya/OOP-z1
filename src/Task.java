@@ -9,7 +9,6 @@ public class Task {
     Boolean priority;
 
     public Task() {
-        // optional: you can set default values here
         this.type = null;
         this.content = null;
         this.date = null;
@@ -21,6 +20,18 @@ public class Task {
         this.content = content;
         this.date = date;
         this.priority = priority;
+    }
+
+    public static Task TaskFromCsv(String lineCSV){
+        if(lineCSV == null) {
+            return null;
+        }
+        String[] parts = lineCSV.split(",", 4);
+        String type = parts.length > 0 ? parts[0].trim() : "";
+        String content = parts.length > 1 ? parts[1].trim() : "";
+        String date = parts.length > 2 ? parts[2].trim() : "";
+        Boolean priority = parts.length > 3 ? Boolean.parseBoolean(parts[3].trim()) : false;
+        return new Task();
     }
 
     public void getTask(){

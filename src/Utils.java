@@ -14,16 +14,22 @@ public final class Utils {
     }
 
     public static void rWholeFile(String fileName) throws IOException{
-        BufferedReader BR = new BufferedReader(new FileReader(fileName));
-        String line = BR.readLine(); //reading the first line
-
-        while(line != null){
-            Utils.printLine(line);
-            line = BR.readLine();
+        try{
+            BufferedReader BR = new BufferedReader(new FileReader(fileName));
+            String line = BR.readLine(); //reading the first line
+            while(line != null){
+                Utils.printLine(line);
+                line = BR.readLine();
+            }
         }
+        catch (Exception e){
+            System.out.println(e);
+            printLine("wrong input");
+        }
+
     }
 
-    ///  loading task from file
+    ///  loading task from file into a object
     public static Task loadTask(){
         Task task = new Task("","","", true);
         return task;
