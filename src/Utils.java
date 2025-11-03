@@ -30,9 +30,19 @@ public final class Utils {
     }
 
     ///  loading task from file into a object
-    public static Task loadTask(){
-        Task task = new Task("","","", true);
-        return task;
+    public static ArrayList<Task> loadTask(String fileName) throws IOException{
+        ArrayList<Task> tasks = new ArrayList<>();
+
+        try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                if (line.trim().isEmpty())
+                    continue;                           // skip blanks
+                if (Task.TaskFromCsv(line) != null)
+                    tasks.add(Task.TaskFromCsv(line));  //
+            }
+        }
+        return tasks; // file empty or only blanks
     }
 
 }

@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Comparator;
 
 public class TaskManager {
     /*
@@ -6,14 +7,15 @@ public class TaskManager {
      */
     ArrayList<Task> taskList = new ArrayList<>();
 
-    public void appendList(Task task){
-        taskList.add(task);
+    public void appendList(ArrayList<Task> nTaskList){
+        taskList.addAll(nTaskList);
+        orderList();
     }
 
     public void orderList (){
-        for(int i = 0; i < taskList.size(); i++){
-
-        }
+        taskList.sort(Comparator
+                .comparing(Task::getPriority, Comparator.reverseOrder())
+                .thenComparing(Task::getDateAsLocalDate, Comparator.nullsLast(Comparator.naturalOrder())));
     }
 
     public void printList (){
@@ -22,4 +24,7 @@ public class TaskManager {
         }
     }
 
+    public void printTask (int x){
+        taskList.get(x).getTask();
+    }
 }

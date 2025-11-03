@@ -1,24 +1,24 @@
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Main {
     public static void main(String[] args) throws IOException {
+        while(RunControl.run){
 
-        int choice = 0;
-        boolean run = true;
-        String fileName = null;
-        Utils.printLine("debug path src/file.csv");
-        Task t = new Task();
+            if (RunControl.menuLevel == 1)
+                RunControl.startMenu();
 
 
-        while(run){
-
-            Utils.printLine("Chose your file to load tasks");
-            fileName = Utils.getLine();
-            Utils.rWholeFile(fileName);
-            run = false;
+            if (RunControl.menuLevel == 2)
+                RunControl.workMenu();
+            /*
+            tManager.printList();
+            */
         }
 
 
+        //Utils.rWholeFile(fileName);
         //choice = TaskControl.makeChoice();
         //String fileName = Utils.getLine();
         //Integer.parseInt(

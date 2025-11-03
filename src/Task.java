@@ -1,12 +1,12 @@
-public class Task {
-    /*
-        parrent object used to extend our main task types
-     */
+import java.time.LocalDate;
+
+public abstract class Task {
 
     String type;
     String content;
     String date;
     Boolean priority;
+
 
     public Task() {
         this.type = null;
@@ -23,15 +23,22 @@ public class Task {
     }
 
     public static Task TaskFromCsv(String lineCSV){
-        if(lineCSV == null) {
+        if(lineCSV == null)
             return null;
-        }
         String[] parts = lineCSV.split(",", 4);
         String type = parts.length > 0 ? parts[0].trim() : "";
         String content = parts.length > 1 ? parts[1].trim() : "";
         String date = parts.length > 2 ? parts[2].trim() : "";
         Boolean priority = parts.length > 3 ? Boolean.parseBoolean(parts[3].trim()) : false;
-        return new Task();
+        switch (type.toLowerCase()){
+            case "admin":
+                return new AdminTask(type, content, date, priority);
+            case "reklamacia":
+                return  new WarrantyClaim(type, content, date, priority);
+            default:
+                Utils.printLine("something went wrong");
+                return null;
+        }
     }
 
     public void getTask(){
@@ -41,7 +48,19 @@ public class Task {
             Utils.printLine(Boolean.toString(priority));
     }
 
-    public void completeTask(){
+    public LocalDate getDateAsLocalDate(){
+        return LocalDate.parse(this.date);
+    }
+
+    public boolean getPriority(){
+        return this.priority;
+    }
+
+    public void acceptTask(){
+
+    }
+
+    public void solveTask (){
 
     }
 
