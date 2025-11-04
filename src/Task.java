@@ -42,10 +42,8 @@ public abstract class Task {
     }
 
     public void getTask(){
-            Utils.printLine(type);
+            Utils.printLine(type + " / " + date + " / " + priority);
             Utils.printLine(content);
-            Utils.printLine(date);
-            Utils.printLine(Boolean.toString(priority));
     }
 
     public LocalDate getDateAsLocalDate(){
@@ -56,12 +54,30 @@ public abstract class Task {
         return this.priority;
     }
 
-    public void acceptTask(){
-
-    }
-
     public void solveTask (){
-
+        RunControl.tManager.completedTaskList.add(RunControl.tManager.taskList.getFirst());
+        RunControl.tManager.taskList.removeFirst();
     }
 
+    public void solveTaskPositive(){
+        Utils.printLine("solved task");
+        solveTask();
+    }
+
+    abstract public  void solveTaskNegative();
+
+    private static String csvEscape(String s) {
+        if (s == null) s = "";
+        String q = "\"";
+        return q + s.replace("\"", "\"\"") + q;
+    }
+
+    public String toCsvLine() {
+        return String.join(",",
+                csvEscape(this.type),
+                csvEscape(this.content),
+                csvEscape(this.date),
+                csvEscape(Boolean.toString(this.priority))
+        );
+    }
 }

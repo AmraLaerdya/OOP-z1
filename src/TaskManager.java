@@ -2,10 +2,9 @@ import java.util.ArrayList;
 import java.util.Comparator;
 
 public class TaskManager {
-    /*
-        will be used to organize the csv file into array or other file by date priority.. so on
-     */
-    ArrayList<Task> taskList = new ArrayList<>();
+
+    ArrayList<Task> taskList            = new ArrayList<>();
+    ArrayList<Task> completedTaskList   = new ArrayList<>();
 
     public void appendList(ArrayList<Task> nTaskList){
         taskList.addAll(nTaskList);
@@ -24,7 +23,25 @@ public class TaskManager {
         }
     }
 
-    public void printTask (int x){
-        taskList.get(x).getTask();
+    public void printCompletTaskList(){
+        for(int i = 0; i < completedTaskList.size(); i++){
+            completedTaskList.get(i).getTask();
+        }
+    }
+
+    public void printTask (){
+        taskList.getFirst().getTask();
+    }
+
+    public void addCompleteTask (Task task){
+        completedTaskList.add(task);
+    }
+
+    public void exportCompletedToCsv(String fileName, boolean append) {
+        Utils.fileWrite(fileName, completedTaskList, append);
+    }
+
+    public void exportUncompletedToCsv(String fileName, boolean append) {
+        Utils.fileWrite(fileName, taskList, append);
     }
 }

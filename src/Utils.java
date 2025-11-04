@@ -13,23 +13,7 @@ public final class Utils {
         return scan.nextLine();
     }
 
-    public static void rWholeFile(String fileName) throws IOException{
-        try{
-            BufferedReader BR = new BufferedReader(new FileReader(fileName));
-            String line = BR.readLine(); //reading the first line
-            while(line != null){
-                Utils.printLine(line);
-                line = BR.readLine();
-            }
-        }
-        catch (Exception e){
-            System.out.println(e);
-            printLine("wrong input");
-        }
-
-    }
-
-    ///  loading task from file into a object
+    //  loading task from file into a object
     public static ArrayList<Task> loadTask(String fileName) throws IOException{
         ArrayList<Task> tasks = new ArrayList<>();
 
@@ -42,7 +26,24 @@ public final class Utils {
                     tasks.add(Task.TaskFromCsv(line));  //
             }
         }
+        catch (IOException e){
+            Utils.printLine("Error: " + e);
+        }
         return tasks; // file empty or only blanks
+    }
+
+    // Writes all tasks; set append=true to add to an existing file, or false to (re)create it.
+    // If you want a header when not appending, uncomment the header line.
+    public static void fileWrite(String fileName, ArrayList<Task> tasks, boolean append) {
+        try (PrintWriter pw = new PrintWriter(new BufferedWriter(new FileWriter(fileName, append)))) {
+            // If you want a header when starting a new file:
+            // if (!append) pw.println("\"type\",\"content\",\"date\",\"priority\"");
+            for (Task t : tasks) {
+                if (t != null) pw.println(t.toCsvLine());
+            }
+        } catch (IOException e) {
+            Utils.printLine("Error: " + e);
+        }
     }
 
 }

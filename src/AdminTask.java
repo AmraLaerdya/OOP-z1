@@ -5,11 +5,13 @@ public class AdminTask extends Task{
         this.content = content;
         this.date = date;
         this.priority = priority;
-        Utils.printLine("admin task was created");
     }
 
-    public void postponeTask () {
-
+    /// POSTPONE
+    @Override
+    public void solveTaskNegative() {
+        Utils.printLine("postponed");
+        Task t = RunControl.tManager.taskList.removeFirst(/*RunControl.tManagerPos*/);
+        RunControl.tManager.taskList.add(t); // move to end
     }
-
 }

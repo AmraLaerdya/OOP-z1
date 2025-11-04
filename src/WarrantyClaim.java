@@ -5,11 +5,12 @@ public class WarrantyClaim extends Task{
         this.content = content;
         this.date = date;
         this.priority = priority;
-        Utils.printLine("warranty was created");
     }
 
-    public void denyClaim (){
-
+    /// Deny claim
+    @Override
+    public void solveTaskNegative() {
+        Utils.printLine("Claim Denied");
+        solveTask();
     }
-
 }
